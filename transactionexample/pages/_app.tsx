@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import MainPage from "./MainPage";
 
 import { NextPage } from "next";
 import WalletContextProvider from "../components/WalletContextProvider";
@@ -11,7 +12,9 @@ const Home: NextPage = () =>{
         <>
             <WalletContextProvider>
                 <AppBar></AppBar>
+                <MainPage/>
             </WalletContextProvider>
+           
         </>
     )
 }
