@@ -48,32 +48,40 @@ const MainPage: FC = () => {
                     }
                 }).catch((err) => window.alert("Transaction Failed!!!"));
             }
-            else{
+            else {
                 window.alert("Low Balance!!!!");
             }
 
         }
     }
     return (
-        <div className="items-center flex flex-col">
-            <h1 className="text-5xl font-roboto text-center mt-6">Transaction Demo Using Wallet</h1>
-            <h1 className="text-center mt-20 text-3xl">Balance: {balance}</h1>
+        <div>
+            <h1 className="text-5xl font-roboto text-center mt-6 w-full text-wrap phone:leading-normal phone:text-4xl">Transaction Demo Using Wallet</h1>
+            <h1 className="text-center mt-20 text-3xl phone:mt-14">Balance: {balance}</h1>
 
-            <div className="flex flex-col">
-                <label className="text-gray-200 mt-16 text-center text-3xl">Amount (in SOL) to send:</label>
-                <input type="text" className="w-[550px] mt-2 h-12 bg-gray-200 border-none outline-none p-5 text-2xl rounded-md"
-                value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <div className="flex w-full items-center justify-center ">
+                <div className="flex flex-col justify-center  w-[50%] phone:w-[90%] ">
 
-                <label className="text-gray-200 mt-16 text-center text-3xl">Send SOL to(Wallet Address):</label>
-                <input type="text" className="w-[550px] mt-2 h-12 bg-gray-200 border-none outline-none p-5 text-[20px] rounded-md"
-                value={toAddress} onChange={(e) => setToAddress(e.target.value)} />
+                        <label className="text-gray-200 text-3xl mt-14 phone:text-[23px]">Amount (in SOL) to send:</label>
+                        <input type="text" className="w-[100%] mt-2 h-12 bg-gray-200 border-none outline-none p-5 text-2xl rounded-md"
+                            value={amount} onChange={(e) => setAmount(e.target.value)} />
+
+                        <label className="text-gray-200 text-3xl mt-14 phone:text-[23px]">Send SOL to(Wallet Address):</label>
+                        <input type="text" className="w-[100%] mt-2 h-12 bg-gray-200 border-none outline-none p-5 text-[20px] rounded-md"
+                            value={toAddress} onChange={(e) => setToAddress(e.target.value)} />
+
+                    <div className="w-[100%]">
+                        {isTransactionComplete ?
+                            <p className="mt-16 text-blue-600 text-[18px] underline"><a target="_blank" href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}>view on explorer</a></p>
+                            :
+                            <button onClick={onclick} className="bg-violet-700 border-none text-white text-[18px] h-14 w-[100%] mt-16 rounded-md ">Send</button>
+                        }
+                    </div>
+
+                </div>
+
             </div>
 
-            {isTransactionComplete ?
-                <p className="mt-16 text-blue-600 text-[18px] underline"><a target="_blank" href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}>view on explorer</a></p>
-                :
-                <button onClick={onclick} className="bg-violet-700 border-none text-white text-[18px] h-14 w-[550px] mt-16 rounded-md ">Send</button>
-            }
         </div>
     )
 }
