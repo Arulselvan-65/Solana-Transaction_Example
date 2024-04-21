@@ -1,6 +1,8 @@
 import {FC} from "react";
+//For using the wallet-adapter-react-ui in client side
 import dynamic from 'next/dynamic';
 
+//Disabling the SSR(Server Side Rendering) for the wallet-adapter-react-ui package with dynamic()
 const WalletMultiButtonDynamic = dynamic(
     async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
     { ssr: false }
