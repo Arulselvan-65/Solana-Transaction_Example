@@ -15,20 +15,21 @@ const MainPage: FC = () => {
 
     useEffect(() => {
         if (publicKey) {
+            //Retrieving the balance from the account connected using getBalance()
             connection.getBalance(publicKey).then(e => setBalance(e / web3.LAMPORTS_PER_SOL));
         }
     });
 
 
     const onclick = () => {
-        console.log(publicKey);
-
         if (!connection || !publicKey) {
             window.alert("Please connect your wallet to continue!!");
         }
 
         else {
+            //Creating a Transaction
             const transaction = new web3.Transaction();
+            //converting the input into a Public Key
             const toPublicKey = new web3.PublicKey(toAddress);
 
             if (balance > parseFloat(amount)) {
@@ -38,7 +39,10 @@ const MainPage: FC = () => {
                     lamports: web3.LAMPORTS_PER_SOL * parseFloat(amount)
                 })
 
+                //Adding the instructions to the Transaction
                 transaction.add(instructions);
+
+                //Sending transaction 
                 sendTransaction(transaction, connection).then(async (sig) => {
                     if (sig) {
                         setSignature(sig);
@@ -51,9 +55,9 @@ const MainPage: FC = () => {
             else {
                 window.alert("Low Balance!!!!");
             }
-
         }
     }
+
     return (
         <div>
             <h1 className="text-5xl font-roboto text-center mt-6 w-full text-wrap phone:leading-normal phone:text-4xl">Transaction Demo Using Wallet</h1>
@@ -72,16 +76,13 @@ const MainPage: FC = () => {
 
                     <div className="w-[100%]">
                         {isTransactionComplete ?
-                            <p className="mt-16 text-blue-600 text-[18px] underline"><a target="_blank" href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}>view on explorer</a></p>
+                            <p className="mt-16 text-blue-600 text-[18px] underline text-center"><a target="_blank" href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}>view on explorer</a></p>
                             :
                             <button onClick={onclick} className="bg-violet-700 border-none text-white text-[18px] h-14 w-[100%] mt-16 rounded-md ">Send</button>
                         }
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     )
 }
